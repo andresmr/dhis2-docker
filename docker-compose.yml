@@ -1,11 +1,11 @@
 version: '3'
 services:
     dhis:
-        image: dhis2/core:2.32.5
+        image: dhis2/core:2.35.3
         ports:
             - "8080:8080"
         volumes:
-            - /home/jaime/uio/docker/jaime-dhis2-docker/conf/dhis.conf:/DHIS2_home/dhis.conf
+            - /root/dhis2-docker/conf/dhis.conf:/DHIS2_home/dhis.conf
         environment:
             - WAIT_FOR_DB_CONTAINER=db:5432 -t 0
         depends_on:
@@ -15,7 +15,7 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - /home/jaime/uio/dbs/2.32/:/docker-entrypoint-initdb.d/
+            - /root/dhis2-docker/data/:/var/lib/postgresql/data
         command: postgres -c max_locks_per_transaction=96
         environment:
             - POSTGRES_PASSWORD=dhis
